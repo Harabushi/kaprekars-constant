@@ -43,9 +43,9 @@ const validNum = function (num) {
   };
 };
 
-const main = function () {
+const main = function (num) {
   let previousNum;
-  let currentNum = newNum();
+  let currentNum = num || newNum();
   let startNum = currentNum;
   // starting i at -1 because it checks 6174 once through the while loop before terminating
   let i = -1;
@@ -86,4 +86,31 @@ const bigTest = function () {
   return [count, iterations];
 };
 
-console.log(bigTest());
+const fullTest = function () {
+  const count = {};
+  const iterationCount = {};
+
+  for (let i = 1000; i<9999; i++){
+    if (!validNum(i)) continue;
+    let [start, end, iterations] = main(i);
+    let num = end;
+    if(iterations in iterationCount){
+      iterationCount[iterations]++;
+    } else {
+      iterationCount[iterations] = 1;
+    };
+    if (end !== 6174) {
+      // console.log(start, end);
+      num = start;
+    };
+    if(num in count){
+      count[num]++;
+    } else {
+      count[num] = 1;
+    };
+  };
+
+  return [count, iterationCount];
+};
+
+console.log(fullTest());
