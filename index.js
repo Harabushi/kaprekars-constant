@@ -4,6 +4,8 @@
 // terminate on repeated number, likely 6174 but that is what we are testing
 const { quickSort } = require('./utils');
 
+// first idea get random numbers to test
+// realized 9000 numbers is much easier to go through than testing randomly and is more complete
 const newNum = function () {
   let startNum = Math.floor(Math.random() * (9999 - 1000) + 1000);
 
@@ -15,6 +17,7 @@ const newNum = function () {
   }
 };
 
+// convert to array, sort array, then create ascending and descending numbers
 const orderNums = function (num) {
   const arrNum = String(num)
     .split('')
@@ -30,6 +33,7 @@ const orderNums = function (num) {
   return [ sortedAsc, sortedDesc ]
 };
 
+// check to make sure the number does not fall into one of the 9 known failures, 1111, 2222, etc.
 const validNum = function (num) {
   const arrNum = String(num)
     .split('')
@@ -43,6 +47,7 @@ const validNum = function (num) {
   };
 };
 
+// get number, iterate through the while loop until the number repeats, return info
 const main = function (num) {
   let previousNum;
   let currentNum = num || newNum();
@@ -60,6 +65,7 @@ const main = function (num) {
   return [startNum, currentNum, i];
 };
 
+// not in use, big test for many passes at the random number, fullTest is the better plan
 const bigTest = function () {
   const count = {};
   const iterations = {};
@@ -73,7 +79,6 @@ const bigTest = function () {
       iterations[i] = 1;
     };
     if (end !== 6174) {
-      // console.log(start, end);
       num = start;
     };
     if(num in count){
@@ -86,6 +91,7 @@ const bigTest = function () {
   return [count, iterations];
 };
 
+// run the program for all valid 4-digit values 
 const fullTest = function () {
   const count = {};
   const iterationCount = {};
@@ -100,7 +106,6 @@ const fullTest = function () {
       iterationCount[iterations] = 1;
     };
     if (end !== 6174) {
-      // console.log(start, end);
       num = start;
     };
     if(num in count){
